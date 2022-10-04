@@ -123,7 +123,7 @@ function = fn
 					 end
 ```
 
-Notice that this function has 2 input parameters: x, y and one output. In anonymous functions all the clauses should have the same number of input parameters, here are an example how to DO NOT create a anonymous function
+Notice that this function has 2 input parameters: x, y, and one output. In anonymous functions all the clauses should have the same number of input parameters, here are an example of how to DO NOT create an anonymous function
 
 ```elixir
 function = fn 
@@ -134,7 +134,7 @@ function = fn
 
 ## Cond
 
-Cond is another Elixir structure similar to a switch statement. In this case, I have different cases without an input variable. This is used when I have to check different conditions and find the first one who runs. Here are an example of this:
+Cond is another Elixir structure similar to a switch statement. In this case, I have different cases without an input variable. This is used when I have to check different conditions and find the first one who runs. Here is an example of this:
 
 ```elixir
 cond do 
@@ -228,3 +228,14 @@ myString = "hola"
 result = to_charlist(myString)
 # result = [104, 101, 322, 322, 111]
 ```
+
+# KeyWord Lists
+
+This data structure is a key-value list, similar to JavaScript objects or Golang maps, here is an example:
+
+```elixir
+[{:apple, red}, {:pear,green}] -> is a list of key-value elements  
+[a:1, b:2, c:3] #Another way to create a keyword 
+```
+
+in Elixir the key must be an atom and like the normal list I can do the same list’s operations
