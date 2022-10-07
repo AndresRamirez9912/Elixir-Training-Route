@@ -238,4 +238,111 @@ This data structure is a key-value list, similar to JavaScript objects or Golang
 [a:1, b:2, c:3] #Another way to create a keyword 
 ```
 
+In elixir the KeyWord has the following characteristics
+
+1. Keys must be atoms
+2. Keys are ordered by the developer
+3. A keyword can has more than one key
+
 in Elixir the key must be an atom and like the normal list I can do the same list’s operations
+
+### Index KeyWord list
+
+To get the value of a specific key I can index like a other programming language, normal list. Here is an example:
+
+```elixir
+myList =[a:1, b:2, c:3] #Create my list
+value = myList[:a] #Notice that I type the key and return the value 
+```
+
+# Maps
+
+It’s another Elixir structure similar to the KeyWord list but in this case the key could be any data type, not only atoms. Here is an example:
+
+```elixir
+myMap = %{:a => 1, 2=> :b, "hola"=>6}
+```
+
+### Update a value
+
+When I want to change the value from an specific key I use the following structure
+
+```elixir
+myMap = %{:a => 1, 2=> :b, "hola"=>6} #Create my map 
+
+%{map | 2 => "two"} # Change the value of the 2's key to "two" 
+
+%{map | "hola" => "bye"} #change the value of the hola key for bye value
+```
+
+### Index Maps
+
+To index maps I can use the classic syntax with the square brackets [ ] and write inside the key that I want to get the value
+
+```elixir
+myMap = %{:a => 1, 2=> :b, "hola"=>6} #Create my map 
+
+result = myMap[:b] #Get the value of the :key
+```
+
+### Add Elements
+
+When I want to add elements to a map I can use pattern matching but there’re other ways, here is an example using pattern matching
+
+```elixir
+myMap = %{:a => 1, 2=> :b, "hola"=>6} #Create my map 
+
+%{:a => 1} = %{2=> :b, "hola"=>6,:a => 1, :bye=>55}
+# result %{:a => 1, 2=> :b, "hola"=>6,:a => 1, :bye=>55} 
+```
+
+This method return error in some cases when The match isn’t successful, the other way is to use the map module
+
+### Map module (Get values)
+
+I can use the Map module and its functions to handle map data structures, here is an example to obtain the values from a key
+
+```elixir
+myMap = %{:a => 1, 2=> :b, "hola"=>6} #Create my map 
+
+result = Map.Get(myMap,:a) # Write in the second argument the key 
+```
+
+### Map module (Add elements)
+
+To add elements it’s similar as get values, use the map module and the Put function as the following example:
+
+```elixir
+myMap = %{:a => 1, 2=> :b, "hola"=>6} #Create my map 
+
+result = myMap.Put(myMap,:c,25) # Write the map and then the new key,value
+```
+
+Notice the immutable element’s property because the map called myMap isn’t modified, instead of this Elixir creates a new map with the new element
+
+### Map module (Convert list into map)
+
+Also, I can convert an existing map into a list but each map element is converted into a little list, this means that the result is a list of little lists. Here is an example:
+
+```elixir
+myMap = %{:a => 1, 2=> :b, "hola"=>6} #Create my map 
+
+result = Map.to_list(myMap)
+
+#result = [{:a,1}, {2,:b}, {"hola",6}] 
+```
+
+## Maps with atoms key
+
+When I have a map with all of it’s keys are atoms I can create or use the following syntax
+
+```elixir
+myMap = %{a: 1, b: 2} # Notice the % refering to a map but the => it's not there
+```
+
+Also I can access to the value using the special notation (only when the keys are atoms)
+
+```elixir
+myMap = %{a: 1, b: 2} # Notice the % referring to a map but the => it's not there
+result = myMap.a #Get the value where the key it;s the atom a
+```
