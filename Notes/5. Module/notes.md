@@ -194,3 +194,111 @@ date.year #I can index by the dot
 ```
 
 this is equal to creating a time data type, but in this case using the ~T[hh:mm:ss:ms]
+
+# Try, Catch and rescue
+
+## Errors
+
+The error occurs when something exceptional occurs in the code or I call the function `raise`
+
+that create errors
+
+```elixir
+# exceptional error
+result = "hola" + 1 #Try to sum a string with a number
+
+# Create my own error
+raise "auichi" #Create an error which error message it's auchi  
+```
+
+## Try-Catch
+
+This is a way to handle errors and avoid the code crash. Instead of this I can write code to run in case any error occurs, the element has the common structure
+
+```elixir
+try do
+	#Here goes the potentially dangerous 
+	rescue 
+	# Here goes the code in case that the potentially dangerous goes wrong and throw error
+end 
+```
+
+Here is an example but with code
+
+```elixir
+try do 
+	raise "error" #I created an error 
+rescue 
+	RuntimeError -> "Error!" #Pattern matchin if the core return RuntimeError
+end
+```
+
+Many developers don’t use try-catch instead of, they use pattern matching with the case. They type a case where the potentially dangerous action returns an error and another case where it returns a good result.
+
+## Create my own type of errors
+
+If I want my own errors with descriptions and customizable names I can do this:
+
+```elixir
+defmodule Module.FirstError do
+	defexception message: "This is my first Error"
+end 
+
+defmodule MyModule do
+	def div(a,0) do
+	 raise Module.FirstError  #Send error 
+	end
+	def div(a,b) do # Hasn't error return the value 
+	 a/b 
+	end
+end 
+```
+
+## Types and specs
+
+When I create functions inside modules I can write documentation (like I see in previous modules) but also I can write the output data type using the `@spec.` Here is an example:
+
+```elixir
+defmodule MyModule do
+	@spect sum(number,number)::number #notice the :: before the type 
+	def sum(a,b) do
+		a+b
+	end
+
+@spect multiply(number,number)::number #notice the :: before the type 
+	def multiply(a,b) do
+		a*b
+	end
+end
+```
+
+For each function I can define the output data type
+
+# Behaviour
+
+This is something similar as interfaces in other programming languages, in this case I have a command to specify what method the slave modules should implemet (or have) to comply the behavior. Here is an example:
+
+```elixir
+defmodule MyMathModule.Master do
+  # Here I write the methods that the slave have to implement
+  @callback sum(number,number) :: number
+  @callback multiply(number,number) :: number
+
+end 
+```
+
+in This example, this module is the master and say that whatever module wants implement its behavior needs to implement the sum and multiply functions with these input arguments and data type.
+
+```elixir
+defmodule MyMathModule.Slave do
+  @behaviour MyMathModule.Master
+  def sum(a,b) do
+    a+b
+  end
+  def multiply(a,b) do
+    a*b
+  end
+end
+```
+
+This is the other module If I see, this module uses the methods that need to be implemented and has the command `@behaviour`  this means that this module implements the behavior of the master module
