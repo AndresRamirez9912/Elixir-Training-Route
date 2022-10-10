@@ -135,3 +135,62 @@ response = for {key,val} <- %{"a"=>1,"b"=>2}, into %{}, do: {key, val*val}
 ```
 
 Notice that into specify where I want to store the result and do: specify what I want to do with the loop values.
+
+# Sigils
+
+Sigils are string operations that elixir has where I can make regular expressions or strings that can represent whatever character. To create a sigils a just need to write the ~ before a string and the following character define what kind o sigils is the strings.
+
+```elixir
+regular_expresion = ~r/hola|bye/ 
+```
+
+### Regular expressions
+
+This is an expression that can contain a character set, it’s used when I want to limit my strings. It’s created by adding a r next to the sigils character `~r` and then, the regular expression. Here is an example:
+
+```elixir
+regular_name= ~r/Andres/i #the i at the end means without the uppercase or lowecase
+result "Andres"== regular_name 
+#result = true 
+```
+
+### Strings and Charlist
+
+Using ~s before ( ) I can create strings as “”
+
+```elixir
+my_string = ~s(Hello, I can use "" and '' without any problem)
+```
+
+This also apply to create charlist, use ~c before ()
+
+### Word List
+
+using ~w I can create word list separated by spaces, this result a list of words
+
+```elixir
+my_list = ~w(Hello how are you)
+#my_list =[hello,how,are,you]
+```
+
+If I add at the end of the brackets a data type character I can set what kind of data type I want in my word list
+
+- c =char
+- s =string
+- a = atoms
+
+```elixir
+my_list = ~w(Hello how are you)a #a at the end of the ()
+#my_list =[:hello,:how,:are,:you] #Array of atoms 
+```
+
+### Calendar and Time
+
+with ~D I can create a calendar element with [yyy-mm-dd], here is an example:
+
+```elixir
+date = ~D[2022-10-10] 
+date.year #I can index by the dot
+```
+
+this is equal to creating a time data type, but in this case using the ~T[hh:mm:ss:ms]
